@@ -1,8 +1,8 @@
 {
-  "name": "React PWA",
-  "short_name": "reactpwa",
-  "description": "Starter kit for modern web applications",
-  "theme_color": "#ffffff",
+  "name": "JCompanion",
+  "short_name": "JCompanion",
+  "description": "Jeopardy companion app; play along and keep score as you shout at your TV.",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "pwa-192x192.png",
