@@ -184,16 +184,16 @@ function Home() {
       <div style={{ marginBottom: "1rem" }} />
       <CenteredFlexBox>
         {round === "JEOPARDY" && <>
-          <Button variant="outlined" onClick={() => { advanceToDoubleJeopardy() }}>Proceed to Double Jeopardy</Button>
+          <Button variant="outlined" color="info" onClick={() => { advanceToDoubleJeopardy() }}>Proceed to Double Jeopardy</Button>
         </>}
         {round === "DOUBLE JEOPARDY" && <>
-          <Button variant="outlined" onClick={() => { advanceToFinalJeopardy() }}>Proceed to Final Jeopardy</Button>
+          <Button variant="outlined" color="info" onClick={() => { advanceToFinalJeopardy() }}>Proceed to Final Jeopardy</Button>
         </>}
         {round === "FINAL JEOPARDY" && <>
-          <Button variant="contained" disabled={finalJeopardyCorrect === undefined && score > 0} onClick={() => { advanceToScore() }} color="info">Get Score</Button>
+          <Button variant="contained" color="info" disabled={finalJeopardyCorrect === undefined && score > 0} onClick={() => { advanceToScore() }}>Get Score</Button>
         </>}
         {round === "GAME OVER" && <>
-          <Button variant="outlined" onClick={() => { resetGame() }}>New Game</Button>
+          <Button variant="outlined" color="info" onClick={() => { resetGame() }}>New Game</Button>
         </>}
       </CenteredFlexBox>
       <div style={{ marginBottom: "1rem" }} />
