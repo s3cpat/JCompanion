@@ -51,6 +51,7 @@ function Home() {
   };
 
   const advanceToScore = () => {
+    setHasGeneratedOutput(true);
     setRound("GAME OVER");
   };
 
