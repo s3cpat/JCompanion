@@ -235,7 +235,7 @@ function Home() {
             computeEndScreen();
             setHasGeneratedOutput(true);
           }} variant="contained" color="info">Generate Shareable Score Report</Button>}
-          <TextField sx={{ minWidth: 500 }} value={hasGeneratedOutput === true ? socialOutput : ""} disabled multiline />
+          <TextField sx={{ minWidth: 300, maxWidth: "100%" }} value={hasGeneratedOutput === true ? socialOutput : ""} disabled multiline />
           <Button disabled={!hasGeneratedOutput} variant="contained" onClick={() => {
             navigator.clipboard.writeText(socialOutput);
             notificationsActions.push({
