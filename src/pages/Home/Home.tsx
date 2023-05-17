@@ -187,9 +187,11 @@ function Home() {
           <Button variant="outlined" color="info" onClick={() => { advanceToDoubleJeopardy() }}>Proceed to Double Jeopardy</Button>
         </>}
         {round === "DOUBLE JEOPARDY" && <>
+          <Button variant="outlined" color="secondary" onClick={() => { setRound("JEOPARDY") }}>Go back to Jeopardy Round</Button>
           <Button variant="outlined" color="info" onClick={() => { advanceToFinalJeopardy() }}>Proceed to Final Jeopardy</Button>
         </>}
         {round === "FINAL JEOPARDY" && <>
+          <Button variant="outlined" color="secondary" onClick={() => { setRound("DOUBLE JEOPARDY") }}>Go back to Double Jeopardy</Button>
           <Button variant="contained" color="info" disabled={finalJeopardyCorrect === undefined && score > 0} onClick={() => { advanceToScore() }}>Get Score</Button>
         </>}
         {round === "GAME OVER" && <>
@@ -228,7 +230,7 @@ function Home() {
             />
             {!wagerLocked && <Button variant="contained" onClick={() => { setWagerLocked(true) }}>Lock in Wager</Button>}
             {wagerLocked && <>
-              <Button onClick={() => { setWagerLocked(false) }}>Unlock Wager</Button>
+              <Button onClick={() => { setWagerLocked(false) }} disabled={finalJeopardyCorrect !== undefined}>Unlock Wager</Button>
               <Box sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -267,6 +269,10 @@ function Home() {
               },
             });
           }}>Copy to Clipboard</Button>
+          {hasGeneratedOutput && <>
+            <div style={{ marginBottom: "4rem" }} />
+            <Button variant="outlined" color="secondary" onClick={() => { setRound("FINAL JEOPARDY") }}>Go back to Final Jeopardy</Button>
+          </>}
         </CenteredFlexBox>
       </>}
     </>
