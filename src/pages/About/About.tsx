@@ -4,8 +4,14 @@ import Meta from '@/components/Meta';
 import { FullSizeCenteredFlexBox } from '@/components/styled';
 import { FlexBox } from '@/components/styled';
 import { Container } from '@mui/system';
+import { analytics } from '@/firebase-config';
+import { logEvent } from 'firebase/analytics';
+import { useEffect } from 'react';
 
 function About() {
+  useEffect(() => {
+    logEvent(analytics, 'visit_about');
+  }, [])
   return (
     <>
       <Meta title="About" />

@@ -8,14 +8,14 @@ name: Deploy to Firebase Hosting on merge
       - main
 env:
   FIREBASE_CLI_EXPERIMENTS: webframeworks
-  REACT_APP_APIKEY: '${{ secrets.REACT_APP_APIKEY }}'
-  REACT_APP_AUTHDOMAIN: '${{ secrets.REACT_APP_AUTHDOMAIN }}'
-  REACT_APP_DB: '${{ secrets.REACT_APP_DB }}'
-  REACT_APP_PID: '${{ secrets.REACT_APP_PID }}'
-  REACT_APP_SB: '${{ secrets.REACT_APP_SB }}'
-  REACT_APP_SID: '${{ secrets.REACT_APP_SID }}'
-  REACT_APP_APPID: '${{ secrets.REACT_APP_APPID }}'
-  REACT_APP_MID: '${{ secrets.REACT_APP_MID }}'
+  VITE_REACT_APP_APIKEY: '${{ secrets.REACT_APP_APIKEY }}'
+  VITE_REACT_APP_AUTHDOMAIN: '${{ secrets.REACT_APP_AUTHDOMAIN }}'
+  VITE_REACT_APP_DB: '${{ secrets.REACT_APP_DB }}'
+  VITE_REACT_APP_PID: '${{ secrets.REACT_APP_PID }}'
+  VITE_REACT_APP_SB: '${{ secrets.REACT_APP_SB }}'
+  VITE_REACT_APP_SID: '${{ secrets.REACT_APP_SID }}'
+  VITE_REACT_APP_APPID: '${{ secrets.REACT_APP_APPID }}'
+  VITE_REACT_APP_MID: '${{ secrets.REACT_APP_MID }}'
 
 jobs:
   build_and_deploy:

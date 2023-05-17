@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { Alert, AlertTitle, Button, TextField, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import useNotifications from '@/store/notifications';
+import { logEvent } from 'firebase/analytics';
+import { analytics } from '@/firebase-config';
 
 function Home() {
 
@@ -118,6 +120,10 @@ function Home() {
   function transpose(array: any[]) {
     return array[0].map((_: any, colIndex: string | number) => array.map((row: { [x: string]: any; }) => row[colIndex]));
   }
+
+  useEffect(() => {
+    logEvent(analytics, 'visit_home');
+  }, [])
 
   const convertBoardToEmoji = (board: BoardArray) => {
     // console.log("Calculating output")
