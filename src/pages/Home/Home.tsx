@@ -12,6 +12,9 @@ import useNotifications from '@/store/notifications';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '@/firebase-config';
 
+const storedFinalWagerOnLoad = localStorage.getItem("FINALWAGER");
+const storedFinalStatus = localStorage.getItem("FINALCORRECT");
+
 function Home() {
 
   const dateForOutput = dayjs().format("YYYY-MM-DD");
@@ -19,7 +22,7 @@ function Home() {
   const [, notificationsActions] = useNotifications();
   const [hasGeneratedOutput, setHasGeneratedOutput] = useState<boolean>(false);
 
-  const [qualifiesForFinal, setQualifiesForFinal] = useState<boolean>(false);
+  const [qualifiesForFinal, setQualifiesForFinal] = useState<boolean>(Boolean(localStorage.getItem("FINALQUALIFY") || false));
 
   const createEmptyBoard = (multiplier = 1) => {
     return Array<Category>(6).fill(
@@ -37,7 +40,8 @@ function Home() {
   const [score, setScore] = useState<number>(parseInt(localStorage.getItem("SCORE") || "0", 10));
 
   const [jeopardyRoundBoard, setJeopardyRoundBoard] = useState<BoardArray>(localStorage.getItem("JEOPARYROUNDBOARD") !== null ? JSON.parse(localStorage.getItem("JEOPARYROUNDBOARD") || "") : createEmptyBoard());
-  const [doubleJeopardyRoundBoard, setDoubleJeopardyRoundBoard] = useState<BoardArray>(createEmptyBoard(2));
+  const [doubleJeopardyRoundBoard, setDoubleJeopardyRoundBoard] = useState<BoardArray>(localStorage.getItem("DOUBLEJEOPARYROUNDBOARD") !== null ? JSON.parse(localStorage.getItem("DOUBLEJEOPARYROUNDBOARD") || "") : createEmptyBoard(2));
+  // const [doubleJeopardyRoundBoard, setDoubleJeopardyRoundBoard] = useState<BoardArray>(createEmptyBoard(2));
 
   const advanceToDoubleJeopardy = () => {
     setRound("DOUBLE JEOPARDY");
@@ -45,9 +49,11 @@ function Home() {
 
   const advanceToFinalJeopardy = () => {
     if(score > 0){
-      setQualifiesForFinal(true)
+      setQualifiesForFinal(true);
+      localStorage.setItem("FINALQUALIFY", "true");
     } else {
       setQualifiesForFinal(false);
+      localStorage.setItem("FINALQUALIFY", "false");
     }
     setRound("FINAL JEOPARDY");
   };
@@ -72,9 +78,9 @@ function Home() {
   const [jeopardyRoundEmojiScoreboard, setJeopardyRoundEmojiScoreboard] = useState<string>(Array(6).fill(Array(5).fill(unanswered_emoji).join("")).join("\n"));
   const [doubleJeopardyRoundEmojiScoreboard, setDoubleJeopardyRoundEmojiScoreboard] = useState<string>(Array(6).fill(Array(5).fill(unanswered_emoji).join("")).join("\n"));
   const [socialOutput, setSocialOutput] = useState<string>(localStorage.getItem("SOCIALOUT") !== null ? JSON.parse(localStorage.getItem("SOCIALOUT") || "") : "");
-  const [finalJeopardyCorrect, setFinalJeopardyCorrect] = useState<undefined | boolean>();
+  const [finalJeopardyCorrect, setFinalJeopardyCorrect] = useState<undefined | boolean>(storedFinalStatus !== null ? (storedFinalStatus === "true" || storedFinalStatus === "false") ? (storedFinalStatus === "true") : undefined : undefined );
 
-  const [finalWager, setFinalWager] = useState<number>(0);
+  const [finalWager, setFinalWager] = useState<number>(parseInt(storedFinalWagerOnLoad || "0", 10));
   const [wagerLocked, setWagerLocked] = useState<boolean>(false);
 
   const recalculateScore = () => {
@@ -104,7 +110,9 @@ function Home() {
     localStorage.setItem("SCORE", newScore.toString());
     localStorage.setItem("JEOPARYROUNDBOARD", JSON.stringify(jeopardyRoundBoard));
     localStorage.setItem("DOUBLEJEOPARYROUNDBOARD", JSON.stringify(doubleJeopardyRoundBoard));
+    localStorage.setItem("FINALWAGER", finalWager.toString());
     localStorage.setItem("SOCIALOUT", JSON.stringify(socialOutput));
+    localStorage.setItem("FINALCORRECT", JSON.stringify(finalJeopardyCorrect));
   };
 
   useEffect(() => {
@@ -115,6 +123,7 @@ function Home() {
     let out = `JCompanion ${dateForOutput}\nJeopardy Round:\n${jeopardyRoundEmojiScoreboard}Double Jeopardy Round:\n${doubleJeopardyRoundEmojiScoreboard}${qualifiesForFinal ? `Final Wager: ${finalWager} (${finalJeopardyCorrect ? "✅" : "❌"})\n` : "Final Wager: n/a\n"}Score: ${score}`;
     setSocialOutput(out);
     localStorage.setItem("SOCIALOUT", JSON.stringify(out));
+    return out;
   };
 
   function transpose(array: any[]) {
@@ -157,7 +166,8 @@ function Home() {
   const computeEndScreen = () => {
     setJeopardyRoundEmojiScoreboard(convertBoardToEmoji(jeopardyRoundBoard));
     setDoubleJeopardyRoundEmojiScoreboard(convertBoardToEmoji(doubleJeopardyRoundBoard));
-    updateSocialOutput();
+    let o = updateSocialOutput();
+    setSocialOutput(o);
   };
 
   useEffect(() => {
@@ -239,6 +249,7 @@ function Home() {
           {/* <Button onClick={computeEndScreen} variant="contained">DEBUG: RECALCULATE</Button> */}
           {!hasGeneratedOutput && <Button onClick={() => {
             // TODO: why do I have to do this? it should just generate valid output on load, but I'm doing something wrong with the state.
+            setFinalJeopardyCorrect(storedFinalStatus === "true");
             computeEndScreen();
             setHasGeneratedOutput(true);
           }} variant="contained" color="info">Generate Shareable Score Report</Button>}
