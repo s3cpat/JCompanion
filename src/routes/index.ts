@@ -18,6 +18,12 @@ const routes: Routes = {
     title: 'About JCompanion',
     icon: InfoIcon,
   },
+  [Pages.Changelog]: {
+    component: asyncComponentLoader(() => import('@/pages/Changelog')),
+    path: '/changelog',
+    title: 'Changelog',
+    icon: InfoIcon,
+  },
   [Pages.NotFound]: {
     component: asyncComponentLoader(() => import('@/pages/NotFound')),
     path: '*',
