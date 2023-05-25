@@ -20,7 +20,7 @@ export const changelog: Array<ChangelogItem> = [
     },
     {
         version: "1.1.0",
-        _time: dayjs("2023-05-25T00:00:00-05:00"),
+        _time: dayjs("2023-05-24T20:30:00-05:00"),
         changes: [
             "Swapped to dialog input for every clue"
         ],
