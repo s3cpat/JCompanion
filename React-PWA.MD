@@ -270,4 +270,4 @@ There are two more scripts:
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](./React-PWA.LICENSE)

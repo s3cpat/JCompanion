@@ -42,18 +42,6 @@ function Board({ locked = false, round = "JEOPARDY", board, setBoard, score }: B
 
   return (
     <>
-      {/* <CenteredFlexBox flexDirection={"column"}>
-        <FormGroup>
-          <FormControlLabel control={<Switch checked={dailyDouble} onChange={() => {let dd = Boolean(dailyDouble); setDailyDouble(!dd)}} />} label="Edit Mode (for DD)" />
-        </FormGroup>
-        {dailyDouble && <>
-          <Container sx={{ padding: "2rem" }}>
-          <Typography variant="h3">Daily Double Mode Active!</Typography>
-          <Typography variant="h4">Select a clue to set its value to your wager.</Typography>
-          <Typography variant="body1">Daily double denoted with * if already selected for the round; select again to remove an incorrectly marked DD.</Typography>
-          </Container>
-        </>}
-      </CenteredFlexBox> */}
       <CenteredFlexBox flexDirection={"column"}>
         <Typography variant="h4">{round}</Typography>
         {/* <Box> */}

@@ -5,7 +5,7 @@ import type { Notifications } from './types';
 // const title = 'Jeopardy Companion';
 const title = 'JCompanion';
 
-const repository = 'https://github.com/s3cpat/jcompanion_issues';
+const repository = 'https://github.com/s3cpat/jcompanion';
 
 const messages = {
   app: {
