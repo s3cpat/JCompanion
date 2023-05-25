@@ -40,11 +40,9 @@ function Changelog() {
                 }}
               >
                 <Typography variant="h4">v{change.version}{changeIdx === 0 && " (latest)"}</Typography>
-                <span>
                 <Tooltip title={change._time.format("YYYY-MM-DD")} placement="bottom">
                     <Typography variant="caption">{change._time.fromNow()}</Typography>
                 </Tooltip>
-                </span>
                 <ul>
                 {change.changes.map((eachChange: ChangeItem, eachChangeIdx: number) => {
                   return (

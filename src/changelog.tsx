@@ -18,4 +18,13 @@ export const changelog: Array<ChangelogItem> = [
         changes: [],
         notes: "Initial release",
     },
+    {
+        version: "1.1.0",
+        _time: dayjs("2023-05-24T20:30:00-05:00"),
+        changes: [
+            "Swapped to dialog input for every clue"
+        ],
+        notes: "Improved UI for easier experience playing along while watching",
+        
+    }
 ].sort((a,b) => a._time.unix() + b._time.unix());
