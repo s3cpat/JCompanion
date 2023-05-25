@@ -1,5 +1,6 @@
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 
 import asyncComponentLoader from '@/utils/loader';
 
@@ -22,7 +23,7 @@ const routes: Routes = {
     component: asyncComponentLoader(() => import('@/pages/Changelog')),
     path: '/changelog',
     title: 'Changelog',
-    icon: InfoIcon,
+    icon: PublishedWithChangesIcon,
   },
   [Pages.NotFound]: {
     component: asyncComponentLoader(() => import('@/pages/NotFound')),

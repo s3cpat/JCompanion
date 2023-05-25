@@ -24,7 +24,7 @@ function Board({ locked = false, round = "JEOPARDY", board, setBoard, score }: B
   const widthMod = isPortrait ? 0.4 : 1;
 
   const cycleBoardItem = (yIndex: number, xIndex: number) => {
-    let clueStatusMessages = ["UNANSWERED", "CORRECT", "INCORRECT"];
+    let clueStatusMessages = ["UNANSWERED", "SKIP", "CORRECT", "INCORRECT"];
     let copyOfBoard: BoardArray = JSON.parse(JSON.stringify(board));
     let currentClueStatus: ClueStatus = copyOfBoard[yIndex][xIndex];
     currentClueStatus.status = (clueStatusMessages[(clueStatusMessages.indexOf(currentClueStatus.status)+1) % (clueStatusMessages.length)]) as PossibleClueStatus;
@@ -32,9 +32,17 @@ function Board({ locked = false, round = "JEOPARDY", board, setBoard, score }: B
     setBoard(copyOfBoard);
   }
 
+  const setBoardItem = (yIndex: number, xIndex: number, status: "UNANSWERED"|"SKIP"|"CORRECT"|"INCORRECT") => {
+    let copyOfBoard: BoardArray = JSON.parse(JSON.stringify(board));
+    let currentClueStatus: ClueStatus = copyOfBoard[yIndex][xIndex];
+    currentClueStatus.status = (status) as PossibleClueStatus;
+    copyOfBoard[yIndex][xIndex] = currentClueStatus;
+    setBoard(copyOfBoard);
+  }
+
   return (
     <>
-      <CenteredFlexBox flexDirection={"column"}>
+      {/* <CenteredFlexBox flexDirection={"column"}>
         <FormGroup>
           <FormControlLabel control={<Switch checked={dailyDouble} onChange={() => {let dd = Boolean(dailyDouble); setDailyDouble(!dd)}} />} label="Edit Mode (for DD)" />
         </FormGroup>
@@ -45,7 +53,7 @@ function Board({ locked = false, round = "JEOPARDY", board, setBoard, score }: B
           <Typography variant="body1">Daily double denoted with * if already selected for the round; select again to remove an incorrectly marked DD.</Typography>
           </Container>
         </>}
-      </CenteredFlexBox>
+      </CenteredFlexBox> */}
       <CenteredFlexBox flexDirection={"column"}>
         <Typography variant="h4">{round}</Typography>
         {/* <Box> */}
@@ -63,7 +71,7 @@ function Board({ locked = false, round = "JEOPARDY", board, setBoard, score }: B
             {board.map((category, categoryIdx) => {
               return (<Grid key={`cat-${categoryIdx}`} gap={1}>
                 {category.map((clue, clueIdx) => {
-                  const [val, setVal] = useState<number>(baseValue * (clueIdx + 1));
+                  const [val, setVal] = useState<number>(clue.value || baseValue * (clueIdx + 1));
                   const [dailyDoubleOpen, setDailyDoubleOpen] = useState<boolean>(false);
                   const [dailyDoubleWager, setDailyDoubleWager] = useState<number>(0);
                   const closeDailyDouble = (event: any, reason: string) => {
@@ -93,6 +101,18 @@ function Board({ locked = false, round = "JEOPARDY", board, setBoard, score }: B
                         onClick={() => {
                           cycleBoardItem(categoryIdx, clueIdx)}
                         }
+                        skipClue={() => {
+                          setBoardItem(categoryIdx, clueIdx, "SKIP");
+                        }}
+                        resetClue={() => {
+                          setBoardItem(categoryIdx, clueIdx, "UNANSWERED");
+                        }}
+                        gotRight={() => {
+                          setBoardItem(categoryIdx, clueIdx, "CORRECT");
+                        }}
+                        gotWrong={() => {
+                          setBoardItem(categoryIdx, clueIdx, "INCORRECT");
+                        }}
                         wasDailyDouble={clue.dailyDouble}
                         undoDailyDouble={() => {
                           setVal(clue.origValue);
@@ -102,6 +122,7 @@ function Board({ locked = false, round = "JEOPARDY", board, setBoard, score }: B
                           setBoard(copyOfBoard);
                         }}
                         value={val} status={clue} widthMod={widthMod} isPortrait={isPortrait}
+                        columnNumber={categoryIdx+1}
                       />
                     </Grid>
                   )
