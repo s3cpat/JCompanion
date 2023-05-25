@@ -23,7 +23,7 @@ function Changelog() {
         <Typography variant="h3">JCompanion Changelog</Typography>
       </CenteredFlexBox>
       <Container>
-      <Box
+        <Box
           sx={{
             display: "flex",
             flexDirection: "column"
@@ -40,17 +40,19 @@ function Changelog() {
                 }}
               >
                 <Typography variant="h4">v{change.version}{changeIdx === 0 && " (latest)"}</Typography>
-                <Tooltip title={change._time.format("YYYY-MM-DD")} placement="bottom">
+                <span>
+                  <Tooltip title={change._time.format("YYYY-MM-DD")} placement="bottom">
                     <Typography variant="caption">{change._time.fromNow()}</Typography>
-                </Tooltip>
+                  </Tooltip>
+                </span>
                 <ul>
-                {change.changes.map((eachChange: ChangeItem, eachChangeIdx: number) => {
-                  return (
-                    <li key={`change-item-${eachChangeIdx}`}>
-                      <Typography variant="body1" gutterBottom>{eachChange}</Typography>
-                    </li>
-                  )
-                })}
+                  {change.changes.map((eachChange: ChangeItem, eachChangeIdx: number) => {
+                    return (
+                      <li key={`change-item-${eachChangeIdx}`}>
+                        <Typography variant="body1" gutterBottom>{eachChange}</Typography>
+                      </li>
+                    )
+                  })}
                 </ul>
                 {change.notes && <>
                   <Typography variant="h6">Notes</Typography>
