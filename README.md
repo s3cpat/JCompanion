@@ -1,4 +1,4 @@
-<a href="http://react-pwa.surenatoyan.com/" target="_blank" rel="noreferrer">
+<a href="https://jcompanion.app/" target="_blank" rel="noreferrer">
  <img src="./public/cover.png" title="Base App">
 </a>
 
