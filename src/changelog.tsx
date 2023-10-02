@@ -13,12 +13,6 @@ export type ChangelogItem = {
 
 export const changelog: Array<ChangelogItem> = [
     {
-        version: "1.0.0",
-        _time: dayjs("2023-05-16T23:30:00-04:00"),
-        changes: [],
-        notes: "Initial release",
-    },
-    {
         version: "1.1.0",
         _time: dayjs("2023-05-24T20:30:00-04:00"),
         changes: [
@@ -26,5 +20,11 @@ export const changelog: Array<ChangelogItem> = [
         ],
         notes: "Improved UI for easier experience playing along while watching",
         
-    }
+    },
+    {
+        version: "1.0.0",
+        _time: dayjs("2023-05-16T23:30:00-04:00"),
+        changes: [],
+        notes: "Initial release",
+    },
 ].sort((a,b) => a._time.unix() - b._time.unix());
