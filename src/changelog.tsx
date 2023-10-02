@@ -27,4 +27,4 @@ export const changelog: Array<ChangelogItem> = [
         notes: "Improved UI for easier experience playing along while watching",
         
     }
-].sort((a,b) => a._time.unix() + b._time.unix());
+].sort((a,b) => a._time.unix() - b._time.unix());
