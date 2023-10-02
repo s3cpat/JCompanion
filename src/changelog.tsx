@@ -27,4 +27,4 @@ export const changelog: Array<ChangelogItem> = [
         changes: [],
         notes: "Initial release",
     },
-].sort((a,b) => a._time.unix() - b._time.unix());
+].sort((a,b) => a._time.unix() + b._time.unix());
